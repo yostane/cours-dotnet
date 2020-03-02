@@ -1,6 +1,5 @@
 // Dans la suite, la valeur max des nombres aléatoire est de 10
 
-
 /*Ecrire un programme qui génère un tableau 2D éparse de 4 lignes.
 Pour chaque ligne, le nombre de colonnes est un nombre 
 aléatoire.
