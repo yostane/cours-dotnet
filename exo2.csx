@@ -27,3 +27,25 @@ le programme va afficher:
 Le Schtroumpf sera :
 3 x 4 + 3 x 8 + 3 x 7 + 3 x 12 + 6 x 4 + 6 x 8 + 6 x 7 + 6 x 12 = 279
 */
+
+/*
+écrivez un programme permettant de générer aléatoirement
+10 notes comprises entre 0 et 20. 
+Le programme, renvoie le nombre de ces notes supérieures à la moyenne de la classe.
+*/
+
+
+/*
+Ecrire une fonction isPalindrome(string) qui permet de dire si une chaine de caractères est un palindrome
+par exemple: isPalindrome("toto") -> false
+isPalindrome("totot") -> true
+! Sans utiliser de fonction reverse
+*/
+
+/*
+Ecrire une fonction isPalindrome(int) qui permet de dire si une entier est un palindrome
+isPalindrome(1234) -> false
+isPalindrome(12321) -> true
+! Sans utiliser de fonction reverse
+*/
+
