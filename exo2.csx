@@ -5,12 +5,28 @@ Pour chaque ligne, le nombre de colonnes est un nombre
 aléatoire.
 Remplir cette matrice par des nombres aléatoires */
 
+int[][] t1 = new int[4][];
+var r = new Random();
+for (int i = 0; i < t1.Length; i++)
+{
+  t1[i] = new int[r.Next(10)];
+}
+
+for (int i = 0; i < t1.Length; i++)
+{
+  for (int j = 0; j < t1[i].Length; j++)
+  {
+    t1[i][j] = r.Next(10);
+  }
+}
+
+
 /*Afficher cette matrice comme sur excel
   A B C...
 1| 4 6...
 2| 5  4..
-3| -2 5...
-/
+3| -2 5...*/
+
 
 
 
