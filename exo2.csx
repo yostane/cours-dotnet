@@ -20,15 +20,27 @@ for (int i = 0; i < t1.Length; i++)
   }
 }
 
-
 /*Afficher cette matrice comme sur excel
   A B C...
 1| 4 6...
 2| 5  4..
 3| -2 5...*/
 
-
-
+Console.Write("l\\c".PadRight(4));
+for (char i = 'A'; i <= 'Z'; i++)
+{
+  Console.Write(i.ToString().PadRight(4));
+}
+Console.WriteLine();
+for (int i = 0; i < t1.Length; i++)
+{
+  Console.Write($"{i}|".PadRight(4));
+  for (int j = 0; j < t1[i].Length; j++)
+  {
+    Console.Write(t1[i][j].ToString().PadRight(4));
+  }
+  Console.WriteLine();
+}
 
 /*Ecrire un programme qui génère deux tableau 
 de tailles aléatoires et de contenus aléatoire.
@@ -43,6 +55,33 @@ le programme va afficher:
 Le Schtroumpf sera :
 3 x 4 + 3 x 8 + 3 x 7 + 3 x 12 + 6 x 4 + 6 x 8 + 6 x 7 + 6 x 12 = 279
 */
+
+int[] s1 = new int[r.Next(10)];
+int[] s2 = new int[r.Next(10)];
+for (int i = 0; i < s1.Length; i++)
+{
+  s1[i] = r.Next(10);
+}
+for (int i = 0; i < s2.Length; i++)
+{
+  s2[i] = r.Next(10);
+}
+
+int somme = 0;
+for (int i = 0; i < s1.Length; i++)
+{
+  for (int j = 0; j < s2.Length; j++)
+  {
+    somme += s1[i] * s2[j];
+    Console.Write($"{s1[i]} x {s2[j]} ");
+    if (!(i + 1 == s1.Length && j + 1 == s2.Length))
+    {
+      Console.Write($"+ ");
+    }
+  }
+}
+Console.Write($" = {somme}");
+// ! à faire, ne pas afficher le dernier +
 
 /*
 écrivez un programme permettant de générer aléatoirement
