@@ -5,9 +5,6 @@ Pour chaque ligne, le nombre de colonnes est un nombre
 aléatoire.
 Remplir cette matrice par des nombres aléatoires */
 
-
-Console.WriteLine((char)('A' + 1));
-
 /*Afficher cette matrice comme sur excel
   A B C...
 1| 4 6...
