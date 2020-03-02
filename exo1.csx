@@ -57,3 +57,9 @@ Table de 7 :
 …
 7 x 10 = 70
 */
+var r3 = new Random();
+var nb = r3.Next(9);
+for (int i = 0; i <= 10; i++)
+{
+  Console.WriteLine($"{nb} X {i} = {nb * i}");
+}
