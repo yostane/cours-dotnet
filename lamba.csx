@@ -17,3 +17,4 @@ void PrintResult(int a, int b, Func<int, int, string> f)
 PrintResult(5, 66, (x, y) => $"{x} / {y}");
 
 
+
