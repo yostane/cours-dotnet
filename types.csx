@@ -9,3 +9,5 @@ var k = 20; // typage implicite
 string chaine = $"un entier {i}. Une autre var {s}";
 Console.WriteLine(chaine);
 Console.WriteLine("un entier {i}. Une autre var {s}");
+Console.WriteLine($"Expression {i + 3}");
+Console.WriteLine($"Expression {i = 9}");
