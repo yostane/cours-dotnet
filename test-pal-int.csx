@@ -1,4 +1,4 @@
-int getNbDigits(int input)
+int GetNbDigits(int input)
 {
     int k = 0;
     for (k = 0; input > 0; k++)
@@ -8,10 +8,10 @@ int getNbDigits(int input)
     return k == 0 ? 1 : k;
 }
 
-int getDigitAtIndex(int input, int index)
+int GetDigitAtIndex(int input, int index)
 {
     int originalIndex = index;
-    int lastIndex = getNbDigits(input) - 1;
+    int lastIndex = GetNbDigits(input) - 1;
     index = lastIndex - index; // pour aller de g à d
 
     if (index < 0 || index > lastIndex)
@@ -26,10 +26,10 @@ int getDigitAtIndex(int input, int index)
     return input % 10;
 }
 
-int getDigitAtIndexSyska(int input, int index)
+int GetDigitAtIndexSyska(int input, int index)
 {
     int originalIndex = index;
-    int lastIndex = getNbDigits(input) - 1;
+    int lastIndex = GetNbDigits(input) - 1;
     index = lastIndex - index; // pour aller de g à d
 
     if (index < 0 || index > lastIndex)
@@ -44,7 +44,7 @@ int getDigitAtIndexSyska(int input, int index)
 // 12313132 / 10^2 -> 123131 % 10 -> 1
 // 12313132 / 10^5 -> 123 % 10 -> 3
 
-int getDigitAtIndexDroiteAGauche(int input, int index)
+int GetDigitAtIndexDroiteAGauche(int input, int index)
 {
     int k = 0;
     for (k = 0; input > 0 && k < index; k++)
@@ -55,14 +55,14 @@ int getDigitAtIndexDroiteAGauche(int input, int index)
 }
 
 const int value = 59874;
-Console.WriteLine(getDigitAtIndex(value, 0)); // dàg: 4. gàd: 5
-Console.WriteLine(getDigitAtIndex(value, 1)); // dàg: 7. gàd: 9
-Console.WriteLine(getDigitAtIndex(value, 2)); // dàg: 8. gàd: 8
-Console.WriteLine(getDigitAtIndex(value, 3)); // dàg: 9. gàd: 7
-Console.WriteLine(getDigitAtIndex(value, 4)); // dàg: 5. gàd: 4
+Console.WriteLine(GetDigitAtIndex(value, 0)); // dàg: 4. gàd: 5
+Console.WriteLine(GetDigitAtIndex(value, 1)); // dàg: 7. gàd: 9
+Console.WriteLine(GetDigitAtIndex(value, 2)); // dàg: 8. gàd: 8
+Console.WriteLine(GetDigitAtIndex(value, 3)); // dàg: 9. gàd: 7
+Console.WriteLine(GetDigitAtIndex(value, 4)); // dàg: 5. gàd: 4
 
-Console.WriteLine(getDigitAtIndexSyska(value, 0)); // dàg: 4. gàd: 5
-Console.WriteLine(getDigitAtIndexSyska(value, 1)); // dàg: 7. gàd: 9
-Console.WriteLine(getDigitAtIndexSyska(value, 2)); // dàg: 8. gàd: 8
-Console.WriteLine(getDigitAtIndexSyska(value, 3)); // dàg: 9. gàd: 7
-Console.WriteLine(getDigitAtIndexSyska(value, 4)); // dàg: 5. gàd: 4
+Console.WriteLine(GetDigitAtIndexSyska(value, 0)); // dàg: 4. gàd: 5
+Console.WriteLine(GetDigitAtIndexSyska(value, 1)); // dàg: 7. gàd: 9
+Console.WriteLine(GetDigitAtIndexSyska(value, 2)); // dàg: 8. gàd: 8
+Console.WriteLine(GetDigitAtIndexSyska(value, 3)); // dàg: 9. gàd: 7
+Console.WriteLine(GetDigitAtIndexSyska(value, 4)); // dàg: 5. gàd: 4

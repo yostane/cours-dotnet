@@ -190,7 +190,7 @@ Console.WriteLine($"nb chiffres {(int)Math.Log10(palInt) + 1}");
 // Console.WriteLine($"{palInt / 10 / 10 / 10 / 10}");
 // Console.WriteLine($"{palInt / 10 / 10 / 10 / 10 / 10}");
 
-int getNbDigits(int input)
+int GetNbDigits(int input)
 {
     int k = 0;
     for (k = 0; input > 0; k++)
@@ -200,10 +200,10 @@ int getNbDigits(int input)
     return k == 0 ? 1 : k;
 }
 
-int getDigitAtIndex(int input, int index)
+int GetDigitAtIndex(int input, int index)
 {
     int originalIndex = index;
-    int lastIndex = getNbDigits(input) - 1;
+    int lastIndex = GetNbDigits(input) - 1;
     index = lastIndex - index; // pour aller de g à d
 
     if (index < 0 || index > lastIndex)
@@ -215,7 +215,7 @@ int getDigitAtIndex(int input, int index)
     return div % 10;
 }
 
-int nbDigits = getNbDigits(palInt);
+int nbDigits = GetNbDigits(palInt);
 Console.WriteLine($"nb chiffres avec une boucle: {nbDigits}");
 
 // Le nombre d'itérations correspond au nombres de test minimal
@@ -224,7 +224,7 @@ for (j = 0; j < nbDigits / 2; j++)
 {
     int rightIndex = nbDigits - j - 1;
     Console.WriteLine($"{j}, {rightIndex}");
-    if (getDigitAtIndex(palInt, j) == getDigitAtIndex(palInt, rightIndex))
+    if (GetDigitAtIndex(palInt, j) == GetDigitAtIndex(palInt, rightIndex))
     {
         Console.WriteLine($"Kifkif");
     }
