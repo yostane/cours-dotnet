@@ -156,8 +156,10 @@ Par exemple: PredictTurns(pokemon1, pokemon2, 4) peut retourner {pokemon1, pokem
 Le tableau des prochains tours est construit de la façon suivante:
 1- Au début, on associe à chaque pokemon une variable 'action' qui vaut 0.
 2- Incrémenter (+1) l'action de chaque pokemon et répéter cela jusqu'à atteindre le "Speed" d'un des deux Pokemon. 
-3- Celui dont l'action atteint le "Speed" en premier agit (prend le tour) et remet sa variable action à 0. L'autre pokemon garde son action intacte
-4- Si l'action est atteinte pour les deux pokemons à la fois, choisir un des deux au hasard et on remet l'action du pokemon choisi à 0
+3- Celui dont l'action atteint le "Speed" en premier agit (prend le tour) et remet sa variable action à 0. 
+    L'autre pokemon garde son action intacte
+4- Si l'action est atteinte pour les deux pokemons à la fois, choisir un des deux au hasard et on remet l'action du pokemon choisi à 0. 
+    L'action de l'autre pokemon reste intacte.
 5- Pour le tour suivant, reprendre à l'étape 2.
 
 par exemple:
@@ -168,7 +170,6 @@ actionA => 4, ActionB => 4 -> B (actionB => 0)
 ActionA => 8, ActionB => 4 -> B (actionB => 0)
 ActionA => 10, ActionB => 2 -> A (actionA => 0)
 
-
 Pokemon A -> vitesse 4, Pokemon B -> vitesse 4
 Déroulement possible des tours: A, B, A, B, 
 
@@ -176,7 +177,54 @@ Pokemon A -> vitesse 2, Pokemon B -> vitesse 3
 Déroulement (possible) des tours: A, B, A, A, B, A,... ou A, B, A, B, A,
 */
 
+static class GameEngine
+{
+    public static List<Pokemon> PredictTurns(Pokemon pokemon1, Pokemon pokemon2, int turns)
+    {
+        Console.WriteLine($"Start predict turns {pokemon1} vs {pokemon2}. Fighto !");
+        var predictions = new List<Pokemon>();
+        int action1 = 0;
+        int action2 = 0;
 
+        var r = new Random();
+        while (predictions.Count != turns)
+        {
+            action1 += 1;
+            action2 += 1;
+
+            if (action1 >= pokemon1.Speed && action2 >= pokemon2.Speed)
+            {
+                if (r.Next(1) == 0)
+                {
+                    predictions.Add(pokemon1);
+                    action1 = 0;
+                }
+                else
+                {
+                    predictions.Add(pokemon2);
+                    action2 = 0;
+                }
+            }
+            else if (action1 >= pokemon1.Speed)
+            {
+                predictions.Add(pokemon1);
+                action1 = 0;
+            }
+            else if (action2 >= pokemon2.Speed)
+            {
+                predictions.Add(pokemon2);
+                action2 = 0;
+            }
+        }
+        return predictions;
+    }
+}
+
+
+var turns = GameEngine.PredictTurns(salameche, carapuce, 10);
+
+Console.WriteLine($"Predicted turns:");
+Console.WriteLine(String.Join("\n", turns));
 
 /**
 Ajouter les propriétés Attack, Defense et HP (points de vie) aux pokemons.
