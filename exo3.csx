@@ -1,27 +1,123 @@
 /**
 Créer une classe abstraite Pokemon avec une fonction abstraite Crier(). 
-Les pokemons ont aussi une proriété "Speed" de type int.
+Les pokemons ont aussi une proriété (get, set) "Speed" de type int.
 Définir deux espèces de pokemons Salameche et Carapuce et définir la fonction Crier() de chacun.
 
 Créer la classe “PokemonTrainer” qui a comme propriétés:
 - Name
 - Une liste de pokemons (utiliser la classe List)
 
-Créer deux “PokemonTrainer” en leur attribuant un pokemon différent de l'espèce Salameche et un Capauce
+Créer deux "PokemonTrainer" en leur attribuant un pokemon différent de l'espèce Salameche et un Capauce
 */
+abstract class Pokemon
+{
+    // protected: comme un public dans les sous classes, comme du private en dehors
+    public abstract void Crier(); // doit être implémentée par la sous-classe, donc elle ne peut être private
+    public int Speed { get; set; }
+
+    public override string ToString() => $"{GetType().Name}, speed: {Speed}";
+}
+
+class Carapuce : Pokemon, IWalker, ISwimmer
+{
+    // Je mets override pour signifier que j'implémente la méthode virtuelle
+    public override void Crier()
+    {
+        Console.WriteLine("Carapuuuuuuuuuce");
+    }
+
+    public void Walk()
+    {
+        Console.WriteLine("tok tok");
+    }
+
+    public void Swim()
+    {
+        Console.WriteLine("flou flou");
+    }
+}
+
+class Salameche : Pokemon, IFlyer, IWalker
+{
+    public override void Crier()
+    {
+        Console.WriteLine("Sale la mèche, lave toi les cheveux");
+    }
+
+    public void Walk()
+    {
+        Console.WriteLine("tic toc");
+    }
+
+    public void Fly()
+    {
+        Console.WriteLine("vou vou zella");
+    }
+}
+Carapuce carapuce = new Carapuce();
+carapuce.Speed = 10;
+carapuce.Crier();
+Salameche salameche = new Salameche() { Speed = 4 };
+salameche.Crier();
+
+class PokemonTrainer
+{
+    public PokemonTrainer(string name, List<Pokemon> pokemons)
+    {
+        this.Name = name;
+        this.Pokemons = pokemons;
+    }
+    public string Name { get; set; }
+    public List<Pokemon> Pokemons { get; set; }
+}
+
+// tableau dont on peut ajouter ou supprimer des éléments
+var pokemons = new List<Pokemon> { carapuce };
+pokemons.Add(salameche);
+PokemonTrainer sacha = new PokemonTrainer("Sacha", pokemons);
+var pokemons2 = new List<Pokemon> { new Carapuce() { Speed = 5 }, new Salameche() { Speed = 6 } };
+PokemonTrainer ondine = new PokemonTrainer("Ondine", pokemons2);
 
 /**
 Créer les interfaces suivantes:
-    - Walker avec la fonction Walk
-    - Flyer avec la fonction Fly
-    - Swimmer ave la fonction Swim
+    - IWalker avec la fonction Walk
+    - IFlyer avec la fonction Fly
+    - ISwimmer ave la fonction Swim
 
 Implémenter les interfaces Walker et Swimmer pour Carapuce
 Implémenter les interfaces Walker et Flyer pour Salameche
 
-Créer un fonction qui prend un liste de pokemons et retourne les pokemon qui peuvent nager.
+Créer un fonction qui prend un liste de pokemons en paramètre et retourne les pokemons 
+qui peuvent nager.
 */
+interface IWalker
+{
+    void Walk();
+}
+interface IFlyer
+{
+    void Fly();
+}
+interface ISwimmer
+{
+    void Swim();
+}
 
+List<Pokemon> GetSwimmers(List<Pokemon> pokemons)
+{
+    var swimmers = new List<Pokemon>();
+    foreach (var pokemon in pokemons)
+    {
+        if (pokemon is ISwimmer)
+        {
+            swimmers.Add(pokemon);
+        }
+    }
+    return swimmers;
+}
+
+var swimmers = GetSwimmers(sacha.Pokemons);
+Console.WriteLine(String.Join(", ", swimmers));
 
 /**
 Créer une classe “GameEngine” qui définit une fonction statique “PredictTurns”.
