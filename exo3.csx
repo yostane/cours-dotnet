@@ -74,7 +74,9 @@ class PokemonTrainer
 // tableau dont on peut ajouter ou supprimer des éléments
 var pokemons = new List<Pokemon> { carapuce };
 pokemons.Add(salameche);
+pokemons.Add(new Carapuce() { Speed = 20 });
 PokemonTrainer sacha = new PokemonTrainer("Sacha", pokemons);
+Console.WriteLine(String.Join(" - ", sacha.Pokemons));
 var pokemons2 = new List<Pokemon> { new Carapuce() { Speed = 5 }, new Salameche() { Speed = 6 } };
 PokemonTrainer ondine = new PokemonTrainer("Ondine", pokemons2);
 
@@ -120,33 +122,52 @@ List<Pokemon> GetSwimmers(List<Pokemon> pokemons)
 // LINQ
 List<Pokemon> GetSwimmersLinq(List<Pokemon> pokemons)
 {
-    return pokemons.Where(pokemon => pokemon is ISwimmer).ToList();
+    //Method syntax
+    return pokemons.Where(p => p is ISwimmer)
+                    .OrderByDescending(p => p.Speed)
+                    .ToList();
+}
+
+List<Pokemon> GetSwimmersLinq2(List<Pokemon> pokemons)
+{
+    //Query syntax
+    return (from p in pokemons
+            where p is ISwimmer
+            orderby p.Speed descending
+            select p).ToList();
 }
 
 var swimmers = GetSwimmers(sacha.Pokemons);
 Console.WriteLine(String.Join(", ", swimmers));
+Console.WriteLine(String.Join(", ", GetSwimmersLinq(pokemons)));
+Console.WriteLine(String.Join(", ", GetSwimmersLinq2(pokemons)));
 
 /**
-Créer une classe “GameEngine” qui définit une fonction statique “PredictTurns”.
+Créer une classe "GameEngine" qui définit une fonction statique "PredictTurns".
 
-Cette classe prend deux pokemons en paramètres et un entier 'turns' et fournit en résultat un tableau de pokemons.
+Cette fonction prend deux pokemons en paramètres et un entier 'turns'. Elle retourne en résultat une liste de pokemons.
+La liste est de taille 'turns'.
 
-Cette fonction retourne une List de taille 'turns'.
 Chaque élément de la liste contient le pokemon qui va agir dans le prochaine tour i
 
-Par exemple: PredictTurns(Pokemon1, Pokemon2, 4) peut retourner {Pokemon1, Pokemon2, Pokemon1, Pokemon1} 
+Par exemple: PredictTurns(pokemon1, pokemon2, 4) peut retourner {pokemon1, pokemon2, pokemon1, pokemon1} 
 -> Cela singifie que dans le tour suivant, Pokemon1 va agir, ensuite Pokemon2, ensuite Pokemon1 et efin Pokemon1.
 
-Le tableau des prochains tours est déduit de la façon suivante:
-1- Au début, on associe à chaque pokemon une variable action qui vaut 0.
-2- Incrémenter l'action de chaque pokemon et répéter cela jusqu'à atteindre le "speed" d'un des deux Pokemon. 
-3- Celui dont l'action atteint le "speed" en premier agit (prend le tour) et remet sa variable action à 0.
-4- Si l'action est atteinte pour les deux pokemons à la fois, choisir un des deux au hasard.
+Le tableau des prochains tours est construit de la façon suivante:
+1- Au début, on associe à chaque pokemon une variable 'action' qui vaut 0.
+2- Incrémenter (+1) l'action de chaque pokemon et répéter cela jusqu'à atteindre le "Speed" d'un des deux Pokemon. 
+3- Celui dont l'action atteint le "Speed" en premier agit (prend le tour) et remet sa variable action à 0. L'autre pokemon garde son action intacte
+4- Si l'action est atteinte pour les deux pokemons à la fois, choisir un des deux au hasard et on remet l'action du pokemon choisi à 0
 5- Pour le tour suivant, reprendre à l'étape 2.
 
 par exemple:
 Pokemon A -> vitesse 10, Pokemon B -> vitesse 4
 Déroulement des tours: B, B, A, B, 
+
+actionA => 4, ActionB => 4 -> B (actionB => 0)
+ActionA => 8, ActionB => 4 -> B (actionB => 0)
+ActionA => 10, ActionB => 2 -> A (actionA => 0)
+
 
 Pokemon A -> vitesse 4, Pokemon B -> vitesse 4
 Déroulement possible des tours: A, B, A, B, 
@@ -154,6 +175,8 @@ Déroulement possible des tours: A, B, A, B,
 Pokemon A -> vitesse 2, Pokemon B -> vitesse 3
 Déroulement (possible) des tours: A, B, A, A, B, A,... ou A, B, A, B, A,
 */
+
+
 
 /**
 Ajouter les propriétés Attack, Defense et HP (points de vie) aux pokemons.
