@@ -11,7 +11,6 @@ Créer deux “PokemonTrainer” en leur attribuant un pokemon différent de l'e
 */
 
 /**
-Définir l'énumération TypeTerrain avec les valeurs suivantes: 
 Créer les interfaces suivantes:
     - Walker avec la fonction Walk
     - Flyer avec la fonction Fly
