@@ -106,6 +106,7 @@ interface ISwimmer
 List<Pokemon> GetSwimmers(List<Pokemon> pokemons)
 {
     var swimmers = new List<Pokemon>();
+    // procédural
     foreach (var pokemon in pokemons)
     {
         if (pokemon is ISwimmer)
@@ -114,6 +115,12 @@ List<Pokemon> GetSwimmers(List<Pokemon> pokemons)
         }
     }
     return swimmers;
+}
+
+// LINQ
+List<Pokemon> GetSwimmersLinq(List<Pokemon> pokemons)
+{
+    return pokemons.Where(pokemon => pokemon is ISwimmer).ToList();
 }
 
 var swimmers = GetSwimmers(sacha.Pokemons);
