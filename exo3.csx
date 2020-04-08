@@ -227,20 +227,20 @@ Console.WriteLine($"Predicted turns:");
 Console.WriteLine(String.Join("\n", turns));
 
 /**
-Ajouter les propriétés Attack, Defense et HP (points de vie) aux pokemons.
+Ajouter les propriétés Attack, Defense et HealthPpoints (points de vie) aux pokemons.
  Créer dans GameEngine, une fonction statique "SimulateCombat" qui prend deux pokemons en paramètres
-et retoune le pokemon qui aura gagné le simulation.
+et retoune le pokemon qui aura gagné le simulation de combat après 20 tours.
 
-La simulation se déroule de cette façon
-- Le tour de chaque chaque pokemon attaque dans l’ordre défini dans la partie 2.
-Le pokemon subit l’attaque voit ses pv réduire avec cette formule: 
+La simulation se déroule de cette façon:
+- Le tour de chaque pokemon est dans l’ordre défini dans la partie précédente.
+- Le pokemon qui le moins de pv a perdu
+- Dès qu'un pokemon est ko, la simulation s'arrête et ce dernier a perdu
+
+Le pokemon qui subit l’attaque voit ses pv réduire avec cette formule: 
 pv_attaqué = pv_attaqué - ( attaque_de_l’attaquant * -  défense_attaqué)
-Le combat s’arrête dès qu’un pokemon a son pv <= 0.
 
 Exemple:
 Pokemon A -> vitesse 10, attaque 5, défense 2, hp 30
- Pokemon B -> vitesse 4, attaque 4, défense 3, hp 40
- Déroulement:
-Pokemon A attaque, pokemon B subit 2 dégats. Pokemon B a 38 hp
-
+Pokemon B -> vitesse 4, attaque 4, défense 3, hp 40
+Déroulement: Pokemon A attaque, pokemon B subit 2 dégats. Pokemon B a 38 hp
 */
