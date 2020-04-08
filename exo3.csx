@@ -14,6 +14,9 @@ abstract class Pokemon
     // protected: comme un public dans les sous classes, comme du private en dehors
     public abstract void Crier(); // doit être implémentée par la sous-classe, donc elle ne peut être private
     public int Speed { get; set; }
+    public int HealthPoints { get; set; }
+    public int Attack { get; set; }
+    public int Defense { get; set; }
 
     public override string ToString() => $"{GetType().Name}, speed: {Speed}";
 }
@@ -54,10 +57,11 @@ class Salameche : Pokemon, IFlyer, IWalker
         Console.WriteLine("vou vou zella");
     }
 }
-Carapuce carapuce = new Carapuce();
+Carapuce carapuce = new Carapuce() { Attack = 5, Defense = 2, HealthPoints = 30 };
 carapuce.Speed = 10;
+
 carapuce.Crier();
-Salameche salameche = new Salameche() { Speed = 4 };
+Salameche salameche = new Salameche() { Speed = 4, Attack = 4, Defense = 4, HealthPoints = 40 };
 salameche.Crier();
 
 class PokemonTrainer
@@ -218,6 +222,30 @@ static class GameEngine
         }
         return predictions;
     }
+
+    public static Pokemon SimulateCombat(Pokemon pokemon1, Pokemon pokemon2)
+    {
+        var predictions = PredictTurns(pokemon1, pokemon2, 20);
+
+        var random = new Random();
+        int currentTurn = 0;
+
+        while (currentTurn < predictions.Count && pokemon1.HealthPoints > 0 && pokemon2.HealthPoints > 0)
+        {
+            Pokemon attackPokemon = predictions[currentTurn];
+            Pokemon defensePokemon = attackPokemon == pokemon1 ? pokemon2 : pokemon1;
+            var randomMultiplicator = random.NextDouble() + 0.5; // car 0 <= random.NextDouble() <= 1
+            var damage = (int)(attackPokemon.Attack * randomMultiplicator - defensePokemon.Defense);
+            defensePokemon.HealthPoints = defensePokemon.HealthPoints - damage;
+            Console.WriteLine($"{attackPokemon.GetType().Name} attaque");
+            Console.WriteLine($"{defensePokemon.GetType().Name} subit {damage} degats");
+            Console.WriteLine($"{defensePokemon.GetType().Name} a {defensePokemon.HealthPoints} HP");
+            currentTurn += 1;
+        }
+        var winner = pokemon1.HealthPoints > pokemon2.HealthPoints ? pokemon1 : pokemon2;
+        Console.WriteLine($"And the winner is {winner.GetType().Name}");
+        return winner;
+    }
 }
 
 
@@ -226,10 +254,20 @@ var turns = GameEngine.PredictTurns(salameche, carapuce, 10);
 Console.WriteLine($"Predicted turns:");
 Console.WriteLine(String.Join("\n", turns));
 
+GameEngine.SimulateCombat(salameche, carapuce);
+
 /**
 Ajouter les propriétés Attack, Defense et HealthPoints (points de vie) aux pokemons.
+Ces valeurs sont initialisées par défaut de cette facon:
+- attack: valeur aléatoire entre 5 et 10
+- défense: valeur aléatoire entre 5 et 10
+- contrainte: attack + défense <= 15
+- HealthPoints: valeut aléatoire entre 30 et 40
+
  Créer dans GameEngine, une fonction statique "SimulateCombat" qui prend deux pokemons en paramètres
 et retoune le pokemon qui aura gagné le simulation de combat après 20 tours.
+
+La fonction affiche dans la console le déroulement de la "simulation" de combat.
 
 La simulation se déroule de cette façon:
 - Le tour de chaque pokemon est dans l’ordre défini dans la partie précédente.
