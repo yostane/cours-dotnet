@@ -12,10 +12,12 @@ namespace notre_projet
         */
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var x = 10;
+            Console.WriteLine($"Hello World! {x}");
             Console.WriteLine("Appuyez sur une touche pour terminer.");
             Console.ReadKey();
 
+            // les names spaces permettent de trier et d'organiser les classes fonctions et interfaces, etc.
             var p = new notre_projet.Program();
             var y = new yostane.Program();
         }
@@ -25,6 +27,26 @@ namespace notre_projet
 namespace yostane
 {
     class Program
+    {
+
+    }
+
+    interface ITest
+    {
+
+    }
+
+    class Toto
+    {
+
+    }
+
+    struct Point
+    {
+
+    }
+
+    enum Meteo
     {
 
     }
