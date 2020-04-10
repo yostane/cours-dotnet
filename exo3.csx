@@ -236,10 +236,17 @@ static class GameEngine
             Pokemon defensePokemon = attackPokemon == pokemon1 ? pokemon2 : pokemon1;
             var randomMultiplicator = random.NextDouble() + 0.5; // car 0 <= random.NextDouble() <= 1
             var damage = (int)(attackPokemon.Attack * randomMultiplicator - defensePokemon.Defense);
-            defensePokemon.HealthPoints = defensePokemon.HealthPoints - damage;
-            Console.WriteLine($"{attackPokemon.GetType().Name} attaque");
-            Console.WriteLine($"{defensePokemon.GetType().Name} subit {damage} degats");
-            Console.WriteLine($"{defensePokemon.GetType().Name} a {defensePokemon.HealthPoints} HP");
+            if (damage <= 0)
+            {
+                Console.WriteLine($"{attackPokemon.GetType().Name} n'a pas fait de dégats");
+            }
+            else
+            {
+                defensePokemon.HealthPoints = defensePokemon.HealthPoints - damage;
+                Console.WriteLine($"{attackPokemon.GetType().Name} attaque");
+                Console.WriteLine($"{defensePokemon.GetType().Name} subit {damage} degats");
+                Console.WriteLine($"{defensePokemon.GetType().Name} a {defensePokemon.HealthPoints} HP");
+            }
             currentTurn += 1;
         }
         var winner = pokemon1.HealthPoints > pokemon2.HealthPoints ? pokemon1 : pokemon2;
