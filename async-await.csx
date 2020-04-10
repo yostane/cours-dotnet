@@ -20,7 +20,7 @@ var task2 = Task.Run(() =>
 // J'attends la fin des deux tasks
 Task.WaitAll(task1, task2);
 
-// autre facon d'attendre task1
+// autre facon d'attendre task1 mais ça marche à la racine avec scriptcs
 // await task1;
 // autre facon d'attendre task2
 // await task2;
