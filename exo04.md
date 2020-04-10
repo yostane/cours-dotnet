@@ -8,14 +8,14 @@
 
 ## exo 2
 
-Créer un projet console avec dotnet cli permet d'enregistrer dans un fichier appelé "facts.html" la réponse de [https://www.chucknorrisfacts.fr/facts/alea](https://www.chucknorrisfacts.fr/facts/alea).
+Créer un projet console avec dotnet cli qui permet d'enregistrer dans un fichier appelé "facts.html" la réponse de [https://www.chucknorrisfacts.fr/facts/alea](https://www.chucknorrisfacts.fr/facts/alea).
 
 Ouvir ce fichier dans un navigateur, que se passe t'il ?
 
 Pour vous aider:
 
 - [REST client](https://docs.microsoft.com/fr-fr/dotnet/csharp/tutorials/console-webapiclient)
-- [How to write to a text file (C# Programming Guide)](https://docs.microsoft.com/fr-fr/dotnet/csharp/programming-guide/file-system/how-to-write-to-a-text-**file**)
+- [How to write to a text file (C# Programming Guide)](https://docs.microsoft.com/fr-fr/dotnet/csharp/programming-guide/file-system/how-to-write-to-a-text-file)
 
 ## exo 3
 
