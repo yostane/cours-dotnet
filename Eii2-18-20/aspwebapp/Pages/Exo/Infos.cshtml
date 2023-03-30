@@ -1,0 +1,38 @@
+@page
+@{
+    ViewData["Title"] = "Info";
+    string ip = Request.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+    Response.Cookies.Append("last_open_date", DateTime.Now.ToString());
+    var cookies = string.Join(", ", Request.Cookies);
+
+    // copyright VDE ;)
+    ViewData["Title"] = "Infos client";
+    ViewData["ip"] = Request.HttpContext.Connection.RemoteIpAddress;
+    ViewData["port"] = Request.HttpContext.Connection.RemotePort;
+    ViewData["cookie"] = Request.Cookies;
+
+    var magicSpellString =  Request.Cookies["MAGIC_SPELL"];
+    var magicSpell = System.Text.Json.JsonSerializer.Deserialize<efcore.MagicSpell>(magicSpellString);
+}
+
+<h2>@magicSpell.Name</h2>
+<h2>@magicSpell.Damage</h2>
+
+<h2>@ip</h2>
+<h2>@cookies</h2>
+
+@* copyright VDE ;) *@
+<h1>@ViewData["Title"]</h1>
+ 
+<p>IP = @ViewData["ip"]</p>
+<p>PORT = @ViewData["port"]</p>
+ 
+<p>Cookies</p>
+<ul>
+    @foreach (var x in Request.Cookies)
+    {
+        <li>@x</li>
+    }
+</ul>
+ 
+<p>Données clients</p>

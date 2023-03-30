@@ -1,0 +1,8 @@
+@page
+@{
+    var spell = new efcore.MagicSpell { Damage = 200, Name = "AuFeu" };
+    Response.Cookies.Append("MAGIC_SPELL", System.Text.Json.JsonSerializer.Serialize(spell));
+}
+
+<p>Added cookie
+</p>

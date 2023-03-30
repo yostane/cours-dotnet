@@ -1,0 +1,4 @@
+POST https://localhost:5001/user/insert/randy/fighter/100
+###
+GET https://localhost:5001/viveasp
+
