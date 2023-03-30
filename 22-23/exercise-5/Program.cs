@@ -13,11 +13,14 @@ void PrintShapeInfo(Shape shape)
 {
     switch (shape)
     {
-        case Circle c:
-            Console.WriteLine($"Circle {c.Diameter}");
+        case Circle c when c.Radius > 10:
+            Console.WriteLine($"Circle avec un rayon > 10 {c.Diameter}");
             break;
         case Rectangle r:
             Console.WriteLine($"Rectangle {r.Width}");
+            break;
+        default:
+            Console.WriteLine("Autre cas");
             break;
     }
 }
