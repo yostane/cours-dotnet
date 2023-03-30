@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 Circle c1 = new(10);
 Circle c2 = new(10);
@@ -128,3 +129,8 @@ Console.WriteLine(q10);
 
 var q11 = shapes.Where((shape) => shape is Circle).Average((s) => s.Circumference);
 Console.WriteLine(q11);
+
+var t1 = new Task(() =>
+{
+    Console.WriteLine("Hello async");
+});
