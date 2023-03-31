@@ -6,11 +6,16 @@ namespace first_game;
 
 public class Game1 : Game
 {
-    private Point _p = new Point();
+    private Point _p = new();
+
+    private int _size = 100;
+    private bool _isColliding = false;
+    private Point _enemyPosition = new(50, 50);
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
-    private Texture2D _texture;
+    private Texture2D _texture, _enemyTexture;
+
 
     public Game1()
     {
@@ -30,13 +35,8 @@ public class Game1 : Game
     {
         base.LoadContent();
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _texture = new Texture2D(GraphicsDevice, 50, 50);
-        Color[] pixelColors = new Color[50 * 50];
-        for (int i = 0; i < pixelColors.Length; i++)
-        {
-            pixelColors[i] = Color.Green;
-        }
-        _texture.SetData(pixelColors);
+        _texture = Content.Load<Texture2D>("mickeyswildadventue");
+        _enemyTexture = Content.Load<Texture2D>("pat-hibulaire");
     }
 
     protected override void Update(GameTime gameTime)
@@ -48,16 +48,46 @@ public class Game1 : Game
         {
             _p.Y += 1;
         }
+        else if (GamePad.GetState(PlayerIndex.One).DPad.Up == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Up))
+        {
+            _p.Y -= 1;
+        }
+
+        if (GamePad.GetState(PlayerIndex.One).DPad.Left == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Left))
+        {
+            _p.X -= 1;
+        }
+        else if (GamePad.GetState(PlayerIndex.One).DPad.Right == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Right))
+        {
+            _p.X += 1;
+        }
+
+        _enemyPosition.X = (GraphicsDevice.Viewport.Width - _size) / 2;
+        _enemyPosition.Y = (GraphicsDevice.Viewport.Height - _size) / 2;
+
+        bool isCollisionX = _p.X >= _enemyPosition.X && _p.X <= _enemyPosition.X + _size
+                || _p.X + _size >= _enemyPosition.X && _p.X + _size <= _enemyPosition.X + _size;
+        bool isCollisionY = _p.Y >= _enemyPosition.Y && _p.Y <= _enemyPosition.Y + _size ||
+            _p.Y + _size >= _enemyPosition.Y && _p.Y + _size <= _enemyPosition.Y + _size;
+        if (isCollisionX && isCollisionY)
+        {
+            _isColliding = true;
+        }
+        else
+        {
+            _isColliding = false;
+        }
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(_isColliding ? Color.DarkRed : Color.CornflowerBlue);
 
         _spriteBatch.Begin();
-        _spriteBatch.Draw(_texture, new Rectangle(_p.X, _p.Y, 100, 100), Color.White);
+        _spriteBatch.Draw(_texture, new Rectangle(_p.X, _p.Y, _size, _size), Color.White);
+        _spriteBatch.Draw(_enemyTexture, new Rectangle(_enemyPosition.X, _enemyPosition.Y, _size, _size), Color.White);
         _spriteBatch.End();
 
         base.Draw(gameTime);
