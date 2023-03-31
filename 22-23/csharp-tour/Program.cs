@@ -9,11 +9,24 @@ var c2 = new Circle(10, "yellow");
 Console.WriteLine(c1 == c2);
 Console.WriteLine($"c1: {c1}  -  c2: {c2}");
 
+
+int sum(int[] numbers)
+{
+    return numbers.Sum();
+}
+sum(new int[] { 1, 2, 3, 4 });
+
+int sumParams(params int[] numbers)
+{
+    return numbers.Sum();
+}
+sumParams(1, 2, 3, 4); // => new int[]{1, 2, 3, 4}
+
 // propriétés en read only
 // ToString et ==, != et Equals sont implémentés et comparent les propriétés une par une
 record Circle(int Radius, string Color)
 {
-    public int Area { get => Radius * 2 * Math.PI; }
+    public int Area { get => (int)(Radius * 2 * Math.PI); }
 }
 
 
@@ -37,5 +50,19 @@ class ImmutableCircle
     public static bool operator !=(ImmutableCircle m1, ImmutableCircle m2)
     {
         return !(m1 == m2);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is ImmutableCircle c)
+        {
+            return this == c;
+        }
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Radius, Color);
     }
 }
